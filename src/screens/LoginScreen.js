@@ -14,18 +14,21 @@ export default class LoginScreen extends Component {
         <TextInput
           ref="email"
           placeholder="Enter your email"
-          autoFocus={ true }
+          autoFocus
           returnKeyType="next"
-          autocapitalize="none"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={ false }
           onSubmitEditing={ () => this.focusField('password') }
         />
 
         <TextInput
           ref="password"
           placeholder="Enter your password"
-          secureTextEntry={ true }
+          secureTextEntry
           returnKeyType="send"
-          autocapitalize="none"
+          autoCapitalize="none"
+          autoCorrect={ false }
         />
       </View>
     )
