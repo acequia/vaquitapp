@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class acequiapp extends Component {
+export default class vaquitapp extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('acequiapp', () => acequiapp);
+AppRegistry.registerComponent('vaquitapp', () => vaquitapp);

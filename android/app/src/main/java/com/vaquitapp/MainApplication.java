@@ -1,4 +1,4 @@
-package com.acequiapp;
+package com.vaquitapp;
 
 import android.app.Application;
 
