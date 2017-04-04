@@ -1,61 +1,39 @@
-// The login screen with email and password fields in a controlled form.
-// Triggers login on submit.
+// The login screen. Triggers a POST on form submit.
 import React, { Component } from 'react'
-import { View, TextInput } from 'react-native'
+
+import LoginForm from '../components/LoginForm'
 
 export default class LoginScreen extends Component {
-  constructor(params) {
-    super(params)
+  // Submit current credentials from the form
+  async postCredentials(email, password) {
+    const credentials = JSON.stringify({
+      auth: {
+        email,
+        password
+      }
+    })
 
-    this.state = {
-      email: '',
-      password: ''
+    // Hardcoded URL for now
+    try {
+      let response = await fetch('http://vaquita.mauriciopasquier.com.ar/user_token', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: credentials
+      })
+
+      let responseJson = await response.json()
+
+      // TODO Save the token and claims
+      console.log(responseJson)
+    } catch(error) {
+      console.log(error)
     }
   }
 
-  // Focus a field by reference
-  focusField = (field) => {
-    this.refs[field].focus()
-  }
-
-  // Submit current credentials from state
-  submitForm = () => {
-    const { email, password } = this.state
-
-    console.log(`email: ${email}`)
-    console.log(`password: ${password}`)
-  }
-
   render() {
-    const { email, password } = this.state
-
-    return (
-      <View>
-        <TextInput
-          ref="email"
-          value={ email }
-          placeholder="Enter your email"
-          autoFocus
-          returnKeyType="next"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={ false }
-          onChangeText={ (value) => this.setState({ email: value }) }
-          onSubmitEditing={ () => this.focusField('password') }
-        />
-
-        <TextInput
-          ref="password"
-          value={ password }
-          placeholder="Enter your password"
-          secureTextEntry
-          returnKeyType="send"
-          autoCapitalize="none"
-          autoCorrect={ false }
-          onChangeText={ (value) => this.setState({ password: value }) }
-          onSubmitEditing={ () => this.submitForm() }
-        />
-      </View>
-    )
+    return <LoginForm onSubmit={ this.postCredentials } />
   }
 }
