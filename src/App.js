@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
+import jwtDecode from 'jwt-decode'
 
 import LoginScreen from './screens/LoginScreen'
 import DashboardScreen from './screens/DashboardScreen'
@@ -9,21 +10,22 @@ export default class App extends Component {
     super(props)
 
     this.state = {
-      token: null
+      token: null,
+      loginData: null
     }
 
     this.saveToken = this.saveToken.bind(this)
   }
 
   saveToken(token) {
-    this.setState({ token })
+    this.setState({ token, loginData: jwtDecode(token) })
   }
 
   render() {
-    const { token } = this.state
+    const { token, loginData } = this.state
 
     if (token !== null) {
-      return <DashboardScreen token={ token } />
+      return <DashboardScreen login={ loginData.email } />
     }
 
     return <LoginScreen onTokenReceived={ this.saveToken } />

@@ -2,10 +2,10 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
-const DashboardScreen = ({ token }) => {
+const DashboardScreen = ({ login }) => {
   return (
     <View>
-      <Text>{ token }</Text>
+      <Text>Bienvenidx { login }!</Text>
     </View>
   )
 }
