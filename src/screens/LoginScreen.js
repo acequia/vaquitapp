@@ -4,8 +4,16 @@ import React, { Component } from 'react'
 import LoginForm from '../components/LoginForm'
 
 export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props)
+
+    this.postCredentials = this.postCredentials.bind(this)
+  }
+
   // Submit current credentials from the form
   async postCredentials(email, password) {
+    const { onTokenReceived } = this.props
+
     const credentials = JSON.stringify({
       auth: {
         email,
@@ -26,8 +34,8 @@ export default class LoginScreen extends Component {
 
       let responseJson = await response.json()
 
-      // TODO Save the token and claims
-      console.log(responseJson)
+      // { jwt: ... }
+      onTokenReceived(responseJson.jwt)
     } catch(error) {
       console.log(error)
     }

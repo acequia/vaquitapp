@@ -5,15 +5,27 @@ import LoginScreen from './screens/LoginScreen'
 import DashboardScreen from './screens/DashboardScreen'
 
 export default class App extends Component {
-  loggedIn() {
-    return false
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      token: null
+    }
+
+    this.saveToken = this.saveToken.bind(this)
+  }
+
+  saveToken(token) {
+    this.setState({ token })
   }
 
   render() {
-    if (this.loggedIn()) {
-      return <DashboardScreen />
-    } else {
-      return <LoginScreen />
+    const { token } = this.state
+
+    if (token !== null) {
+      return <DashboardScreen token={ token } />
     }
+
+    return <LoginScreen onTokenReceived={ this.saveToken } />
   }
 }

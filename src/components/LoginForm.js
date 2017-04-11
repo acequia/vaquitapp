@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { View, TextInput } from 'react-native'
 
 export default class LoginForm extends Component {
-  constructor(params) {
-    super(params)
+  constructor(props) {
+    super(props)
 
     this.state = {
       email: '',
